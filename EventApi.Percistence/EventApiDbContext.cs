@@ -2,11 +2,6 @@
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Contract;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EventApi.Percistence;
 public class EventApiDbContext : DbContext
@@ -23,26 +18,26 @@ public class EventApiDbContext : DbContext
     }
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
-        
-            foreach (var entry in ChangeTracker.Entries<BaseAuditableEntity>())
+
+        foreach (var entry in ChangeTracker.Entries<BaseAuditableEntity>())
+        {
+            switch (entry.State)
             {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.IsDeleted = false;
-                        entry.Entity.CreatedBy = tokenRepository.GetTokenData().Result.UserName;
-                        entry.Entity.CreatedDate = DateTime.Now;
-                        break;
-                    case EntityState.Modified:
-                        entry.Entity.LastModifiedDate = DateTime.Now;
-                        entry.Entity.LastModifiedBy = tokenRepository.GetTokenData().Result.UserName; ;
-                        break;
+                case EntityState.Added:
+                    entry.Entity.IsDeleted = false;
+                    entry.Entity.CreatedBy = tokenRepository.GetTokenData().Result.UserName;
+                    entry.Entity.CreatedDate = DateTime.Now;
+                    break;
+                case EntityState.Modified:
+                    entry.Entity.LastModifiedDate = DateTime.Now;
+                    entry.Entity.LastModifiedBy = tokenRepository.GetTokenData().Result.UserName; ;
+                    break;
 
-                }
             }
-            return base.SaveChangesAsync(cancellationToken);
-
         }
-    
+        return base.SaveChangesAsync(cancellationToken);
+
+    }
+
 }
 
