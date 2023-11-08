@@ -20,11 +20,15 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Features\ActivitiesSrv\Command\" />
     <Folder Include="Features\ActivitiesSrv\Queries\" />
+    <Folder Include="Features\AuthenticationSrv\" />
+    <Folder Include="Features\UsersSrv\Command\Put\" />
+    <Folder Include="Features\UsersSrv\Queries\" />
     <Folder Include="Profiles\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EventApi.Domain\EventApi.Domain.csproj" />
+    <ProjectReference Include="..\EventApi.Infrasestructure\EventApi.Infrasestructure.csproj" />
   </ItemGroup>
 
 </Project>

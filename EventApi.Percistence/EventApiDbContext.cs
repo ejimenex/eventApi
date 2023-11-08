@@ -12,6 +12,7 @@ public class EventApiDbContext : DbContext
         this.tokenRepository = tokenRepository;
     }
     public DbSet<Activities> Activities { get; set; }
+    public DbSet<User> User { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventApiDbContext).Assembly);

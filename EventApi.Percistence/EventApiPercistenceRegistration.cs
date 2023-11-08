@@ -15,6 +15,7 @@ namespace EventApi.Percistence
             option.UseSqlServer(configuration.GetConnectionString("Context")));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
