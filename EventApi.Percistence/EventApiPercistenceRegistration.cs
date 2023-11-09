@@ -16,6 +16,8 @@ namespace EventApi.Percistence
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
 
             return services;
         }

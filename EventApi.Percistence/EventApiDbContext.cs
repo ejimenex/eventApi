@@ -7,12 +7,14 @@ namespace EventApi.Percistence;
 public class EventApiDbContext : DbContext
 {
     private readonly ITokenService tokenRepository;
-    public EventApiDbContext(DbContextOptions<EventApiDbContext> options, ITokenService tokenRepository)
+    public EventApiDbContext(DbContextOptions<EventApiDbContext> options, ITokenService tokenRepository) : base(options)
     {
         this.tokenRepository = tokenRepository;
     }
     public DbSet<Activities> Activities { get; set; }
     public DbSet<User> User { get; set; }
+    public DbSet<Country> Country { get; set; }
+    public DbSet<Company> Company { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventApiDbContext).Assembly);
@@ -26,7 +28,7 @@ public class EventApiDbContext : DbContext
             {
                 case EntityState.Added:
                     entry.Entity.IsDeleted = false;
-                    entry.Entity.CreatedBy = tokenRepository.GetTokenData().Result.UserName;
+                    entry.Entity.CreatedBy = "system";// tokenRepository.GetTokenData().Result.UserName;
                     entry.Entity.CreatedDate = DateTime.Now;
                     break;
                 case EntityState.Modified:

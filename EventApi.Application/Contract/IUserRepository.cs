@@ -3,8 +3,9 @@ using EventApi.Domain.Entities;
 
 namespace EventApi.Application.Contract
 {
-    public interface IUserRepository:IAsyncRepository<User>
+    public interface IUserRepository : IAsyncRepository<User>
     {
-         Task<bool> ExistEmail(string email);
+        Task<bool> ExistEmail(string email);
+        Task<User> GetByEmail(string email);
     }
 }

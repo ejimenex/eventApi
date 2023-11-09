@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Results;
-using System;
 
 namespace EventApi.Application.Exceptions
 {
