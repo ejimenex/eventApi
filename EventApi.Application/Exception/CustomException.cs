@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace EventApi.Application.Exceptions
+﻿namespace EventApi.Application.Exceptions
 {
     public class CustomException : Exception
     {

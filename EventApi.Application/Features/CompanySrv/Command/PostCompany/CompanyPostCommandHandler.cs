@@ -17,32 +17,25 @@ namespace EventApi.Application.Features.CompanySrv.Command.PostCompany
         {
             _mapper = mapper;
             _companyRepository = companyRepository;
-            _countryRepository = countryRepository; 
+            _countryRepository = countryRepository;
         }
 
         public async Task<ApiResponse<CompanyResposeDto>> Handle(CompanyPostCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CompanyPostValidation(this._companyRepository,_countryRepository);
+            var validator = new CompanyPostValidation(this._companyRepository, _countryRepository);
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Any())
             {
                 throw new FriendlyException(validationResult);
             }
-            try
-            {
-                var entity = _mapper.Map<Company>(request);
-                var dto = _mapper.Map<CompanyResposeDto>(request);
-                entity.IsDisabled = false;
-                entity.UniqueId = Guid.NewGuid();
-                await _companyRepository.AddAsync(entity);
-                return new ApiResponse<CompanyResposeDto> { Success = true, Message = "The company has been inserted", Object = dto };
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
+            var entity = _mapper.Map<Company>(request);
+            var dto = _mapper.Map<CompanyResposeDto>(request);
+            entity.IsDisabled = false;
+            entity.UniqueId = Guid.NewGuid();
+            await _companyRepository.AddAsync(entity);
+            return new ApiResponse<CompanyResposeDto> { Success = true, Message = "The company has been inserted", Object = dto };
 
         }
     }

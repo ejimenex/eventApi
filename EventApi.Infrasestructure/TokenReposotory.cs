@@ -23,7 +23,7 @@ namespace EventApi.Infrasestructure
             var tokenData = tokenS.Claims; ;
             var token = new TokenModel();
             token.UserName = tokenData.First(c => c.Type.EndsWith("name")).Value;
-            token.TenantId = Convert.ToInt32(tokenData.First(c => c.Type.EndsWith("tenantId")).Value);
+            token.TenantId = new Guid(tokenData.First(c => c.Type.EndsWith("tenantId")).Value);
             var permission = tokenData.Where(c => c.Type.EndsWith("Permissions")).ToList();
             var listPermission = new List<string>();
             foreach (var item in permission)

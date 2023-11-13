@@ -1,6 +1,4 @@
 ﻿using EventApi.Application.Features.AuthenticationSrv.Autenticate;
-using EventApi.Application.Features.UsersSrv.Command.Post;
-using EventApi.Infrasestructure.Model;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

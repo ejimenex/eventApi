@@ -8,6 +8,7 @@
         public DateTime? LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public Guid TenantId { get; set; }
 
     }
 }

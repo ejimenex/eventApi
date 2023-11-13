@@ -15,6 +15,9 @@ public class EventApiDbContext : DbContext
     public DbSet<User> User { get; set; }
     public DbSet<Country> Country { get; set; }
     public DbSet<Company> Company { get; set; }
+    public DbSet<Permission> Permission { get; set; }
+    public DbSet<PermissionUser> PermissionUser { get; set; }
+    public DbSet<SubContractors> SubContractors { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventApiDbContext).Assembly);
@@ -28,12 +31,13 @@ public class EventApiDbContext : DbContext
             {
                 case EntityState.Added:
                     entry.Entity.IsDeleted = false;
-                    entry.Entity.CreatedBy = "system";// tokenRepository.GetTokenData().Result.UserName;
+                    entry.Entity.CreatedBy = tokenRepository.GetTokenData().Result.UserName;
+                    entry.Entity.TenantId = tokenRepository.GetTokenData().Result.TenantId;
                     entry.Entity.CreatedDate = DateTime.Now;
                     break;
                 case EntityState.Modified:
                     entry.Entity.LastModifiedDate = DateTime.Now;
-                    entry.Entity.LastModifiedBy = tokenRepository.GetTokenData().Result.UserName; ;
+                    entry.Entity.LastModifiedBy = tokenRepository.GetTokenData().Result.UserName;
                     break;
 
             }

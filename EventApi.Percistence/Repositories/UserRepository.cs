@@ -16,7 +16,7 @@ namespace EventApi.Percistence.Repositories
             return await _dbContext.User.AnyAsync(c => c.Email == email && !c.IsDeleted);
         }
 
-      
+
         public async Task<User> GetByEmail(string email)
         {
             return await _dbContext.User.FirstOrDefaultAsync(c => c.Email == email && !c.IsDeleted);
