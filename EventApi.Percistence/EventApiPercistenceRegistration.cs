@@ -20,6 +20,7 @@ namespace EventApi.Percistence
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IPermissionUserRepository, PermissionUserRepository>();
+            services.AddScoped<ISubContractorRepository, SubContractorRepository>();
 
             return services;
         }

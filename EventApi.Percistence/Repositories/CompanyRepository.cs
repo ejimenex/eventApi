@@ -1,12 +1,13 @@
 ﻿using EventApi.Application.Contract;
 using EventApi.Domain.Entities;
+using EventApi.Infrasestructure.Contract;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
 {
     public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        public CompanyRepository(EventApiDbContext context) : base(context)
+        public CompanyRepository(EventApiDbContext context, ITokenService token) : base(context, token )
         {
 
         }

@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
 using EventApi.Application.Contract;
+using EventApi.Application.Exceptions;
+using EventApi.Application.Features.CompanySrv.Command.PostCompany;
+using EventApi.Application.Features.UsersSrv.Command.Post;
+using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Model;
 using MediatR;
 
@@ -15,9 +19,22 @@ namespace EventApi.Application.Features.SubContractorSrv.Command.PostCommand
             _subContractorRepository = subContractorRepository;
         }
 
-        public Task<ApiResponse<SubContractorPostCommandDto>> Handle(SubContractorPostCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<SubContractorPostCommandDto>> Handle(SubContractorPostCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            
+            var validator = new SubContractorPostCommandValidation(this._subContractorRepository);
+            var validationResult = await validator.ValidateAsync(request);
+
+            if (validationResult.Errors.Any())
+            {
+                throw new FriendlyException(validationResult);
+            }
+
+            var entity = _mapper.Map<SubContractors>(request);
+            var dto = _mapper.Map<SubContractorPostCommandDto>(request);
+            await _subContractorRepository.AddAsync(entity);
+            return new ApiResponse<SubContractorPostCommandDto> { Success = true, Message = "The subcontractor has been inserted", Object = dto };
+
         }
     }
 }

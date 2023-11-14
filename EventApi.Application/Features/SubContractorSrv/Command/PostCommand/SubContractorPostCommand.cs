@@ -9,5 +9,6 @@ namespace EventApi.Application.Features.SubContractorSrv.Command.PostCommand
         public string Address { get; set; }
         public string Phone { get; set; }
         public string City { get; set; }
+        public string DocumentNumber { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace EventApi.Application.Contract
 {
     public interface ISubContractorRepository : IAsyncRepository<SubContractors>
     {
-        Task<bool> ExistESubContractor(string email);
+        Task<bool> ExistESubContractor(string name);
         Task<int> GetCount();
     }
 }
