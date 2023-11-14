@@ -20,7 +20,7 @@ namespace EventApi.Infrasestructure
                 throw new ArgumentException("Header request is null");
             user = user.Replace("Bearer ", "");
             var tokenS = handler.ReadToken(user) as JwtSecurityToken;
-            var tokenData = tokenS.Claims; 
+            var tokenData = tokenS.Claims;
             var token = new TokenModel();
             token.UserName = tokenData.First(c => c.Type.EndsWith("email")).Value;
             token.TenantId = new Guid(tokenData.First(c => c.Type.EndsWith("tenantId")).Value);

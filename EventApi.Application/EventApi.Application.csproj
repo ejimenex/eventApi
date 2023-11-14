@@ -22,7 +22,6 @@
     <Folder Include="Features\ActivitiesSrv\Command\" />
     <Folder Include="Features\ActivitiesSrv\Queries\" />
     <Folder Include="Features\CompanySrv\Command\Remove\" />
-    <Folder Include="Features\SubContractorSrv\Command\PutCommand\" />
     <Folder Include="Features\SubContractorSrv\Queries\" />
     <Folder Include="Features\UsersSrv\Command\Put\" />
     <Folder Include="Features\UsersSrv\Queries\" />

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using EventApi.Application.Contract;
 using EventApi.Application.Exceptions;
-using EventApi.Application.Features.CompanySrv.Command.PostCompany;
-using EventApi.Application.Features.UsersSrv.Command.Post;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Model;
 using MediatR;
@@ -21,7 +19,7 @@ namespace EventApi.Application.Features.SubContractorSrv.Command.PostCommand
 
         public async Task<ApiResponse<SubContractorPostCommandDto>> Handle(SubContractorPostCommand request, CancellationToken cancellationToken)
         {
-            
+
             var validator = new SubContractorPostCommandValidation(this._subContractorRepository);
             var validationResult = await validator.ValidateAsync(request);
 

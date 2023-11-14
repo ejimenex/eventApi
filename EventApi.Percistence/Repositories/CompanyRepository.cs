@@ -7,7 +7,7 @@ namespace EventApi.Percistence.Repositories
 {
     public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        public CompanyRepository(EventApiDbContext context, ITokenService token) : base(context, token )
+        public CompanyRepository(EventApiDbContext context, ITokenService token) : base(context, token)
         {
 
         }

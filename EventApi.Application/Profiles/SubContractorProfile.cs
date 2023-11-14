@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EventApi.Application.Features.CompanySrv.Command.PostCompany;
 using EventApi.Application.Features.SubContractorSrv.Command.PostCommand;
+using EventApi.Application.Features.SubContractorSrv.Command.PutCommand;
 using EventApi.Domain.Entities;
 
 namespace EventApi.Application.Profiles
@@ -11,6 +11,8 @@ namespace EventApi.Application.Profiles
         {
             CreateMap<SubContractorPostCommand, SubContractorPostCommandDto>().ReverseMap();
             CreateMap<SubContractors, SubContractorPostCommand>().ReverseMap();
+
+            CreateMap<SubContractors, SubContractorPutCommand>().ReverseMap();
         }
     }
 }

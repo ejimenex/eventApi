@@ -6,7 +6,7 @@ namespace EventApi.Percistence.Repositories
 {
     public class ActivitiesRepository : BaseRepository<Activities>, IActivitiesRepository
     {
-        public ActivitiesRepository(EventApiDbContext context,ITokenService token) : base(context,token)
+        public ActivitiesRepository(EventApiDbContext context, ITokenService token) : base(context, token)
         {
 
         }

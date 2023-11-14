@@ -11,12 +11,12 @@ namespace EventApi.Percistence.Repositories
         public BaseRepository(EventApiDbContext dbContext, ITokenService tokenService)
         {
             _dbContext = dbContext;
-            _tokenService = tokenService;   
+            _tokenService = tokenService;
         }
 
         public virtual async Task<T> AddAsync(T entity)
         {
-            
+
             await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;

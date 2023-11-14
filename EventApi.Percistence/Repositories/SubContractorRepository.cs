@@ -13,9 +13,9 @@ namespace EventApi.Percistence.Repositories
         }
 
         public override async Task<SubContractors> AddAsync(SubContractors entity)
-        {            
-                entity.TenantId =(await _tokenService.GetTokenData()).TenantId;
-                return await base.AddAsync(entity);            
+        {
+            entity.TenantId = (await _tokenService.GetTokenData()).TenantId;
+            return await base.AddAsync(entity);
         }
 
         public async Task<bool> ExistESubContractor(string name)
