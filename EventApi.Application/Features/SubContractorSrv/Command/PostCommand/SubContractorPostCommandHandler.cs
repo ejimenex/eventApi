@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EventApi.Application.Contract;
-using EventApi.Application.Exceptions;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Model;
 using MediatR;
@@ -20,13 +19,13 @@ namespace EventApi.Application.Features.SubContractorSrv.Command.PostCommand
         public async Task<ApiResponse<SubContractorPostCommandDto>> Handle(SubContractorPostCommand request, CancellationToken cancellationToken)
         {
 
-            var validator = new SubContractorPostCommandValidation(this._subContractorRepository);
-            var validationResult = await validator.ValidateAsync(request);
+            //var validator = new SubContractorPostCommandValidation(this._subContractorRepository);
+            //var validationResult = await validator.ValidateAsync(request);
 
-            if (validationResult.Errors.Any())
-            {
-                throw new FriendlyException(validationResult);
-            }
+            //if (validationResult.Errors.Any())
+            //{
+            //    throw new FriendlyException(validationResult);
+            // }
 
             var entity = _mapper.Map<SubContractors>(request);
             var dto = _mapper.Map<SubContractorPostCommandDto>(request);

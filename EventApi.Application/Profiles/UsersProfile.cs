@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EventApi.Application.Features.UsersSrv.Command.Post;
+using EventApi.Application.Features.UsersSrv.Queries.GetAllUser;
 using EventApi.Domain.Entities;
 
 namespace EventApi.Application.Profiles
@@ -10,6 +11,9 @@ namespace EventApi.Application.Profiles
         {
             CreateMap<UserCommand, UserDto>().ReverseMap();
             CreateMap<User, UserCommand>().ReverseMap();
+
+            CreateMap<User, GetAllUserDto>()
+                .ForMember(c => c.Ocupation, opt => opt.MapFrom(c => c.Ocupation.Name));
         }
     }
 }

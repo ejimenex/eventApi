@@ -1,10 +1,11 @@
 ﻿using EventApi.Application.Contract.Persistence;
+using EventApi.Domain.Common;
 using EventApi.Infrasestructure.Contract;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventApi.Percistence.Repositories
+namespace EventApi.Percistence.Repositories.Base
 {
-    public class BaseRepository<T> : IAsyncRepository<T> where T : class
+    public class BaseRepository<T> : IAsyncRepository<T> where T : BaseId, new()
     {
         protected readonly EventApiDbContext _dbContext;
         protected readonly ITokenService _tokenService;
@@ -43,5 +44,6 @@ namespace EventApi.Percistence.Repositories
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
+
     }
 }

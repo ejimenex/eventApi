@@ -10,6 +10,8 @@ namespace EventApi.Domain.Entities
         public bool IsDisabled { get; set; }
         public Guid TenantId { get; set; }
         public DateTime LastLogin { get; set; }
+        public int? OcupationId { get; set; }
+        public virtual Ocupation Ocupation { get; set; }
 
     }
 }

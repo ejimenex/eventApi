@@ -1,5 +1,6 @@
 ﻿namespace EventApi.Application.Contract.Persistence
 {
+    public interface IAsyncRepository { }
     public interface IAsyncRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int Id);

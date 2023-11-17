@@ -7,35 +7,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
 {
-    public class SubContractorRepository : BaseRepository<SubContractors>, ISubContractorRepository
+    public class OcupationRepository : BaseRepository<Ocupation>, IOcupationRepository
     {
-        public SubContractorRepository(EventApiDbContext context, ITokenService token) : base(context, token)
+        public OcupationRepository(EventApiDbContext context, ITokenService token) : base(context, token)
         {
 
         }
 
-        public override async Task<SubContractors> AddAsync(SubContractors entity)
+        public override async Task<Ocupation> AddAsync(Ocupation entity)
         {
             entity.TenantId = (await _tokenService.GetTokenData()).TenantId;
             return await base.AddAsync(entity);
         }
 
-        public async Task<bool> ExistESubContractor(string name)
+        public async Task<bool> ExistOcupation(string name)
         {
             var tenant = (await _tokenService.GetTokenData()).TenantId;
-            return await _dbContext.SubContractors.AnyAsync(c => c.Name == name && c.TenantId == tenant);
+            return await _dbContext.Ocupation.AnyAsync(c => c.Name == name && c.TenantId == tenant);
         }
-        private IQueryable<SubContractors> GetIQuerable(SubContractorFilter filter)
+        private IQueryable<Ocupation> GetIQuerable(OcupationFilter filter)
         {
             var tenantId = Task.Run(() => _tokenService.GetTokenData()).Result.TenantId;
-            var data = _dbContext.SubContractors.Where(c => !c.IsDeleted && c.TenantId == tenantId)
+            var data = _dbContext.Ocupation.Where(c => !c.IsDeleted && c.TenantId == tenantId)
                .AsQueryable();
 
-            data = !string.IsNullOrEmpty(filter.DocumentNumber) ? data.Where(c => c.DocumentNumber == filter.DocumentNumber) : data;
             data = !string.IsNullOrEmpty(filter.Name) ? data.Where(c => c.Name.Contains(filter.Name)) : data;
             return data;
         }
-        public async Task<List<SubContractors>> GetPaged(SubContractorFilter filter, int page, int size)
+        public async Task<List<Ocupation>> GetPaged(OcupationFilter filter, int page, int size)
         {
             var data = GetIQuerable(filter);
             var result = await data
@@ -45,7 +44,7 @@ namespace EventApi.Percistence.Repositories
                 .ToListAsync();
             return result;
         }
-        public async Task<int> GetCount(SubContractorFilter filter) => await GetIQuerable(filter).CountAsync();
+        public async Task<int> GetCount(OcupationFilter filter) => await GetIQuerable(filter).CountAsync();
 
     }
 }

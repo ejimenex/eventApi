@@ -44,6 +44,7 @@ namespace EventApi
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors("Open");
+            app.UseMiddleware<ExceptionMiddleware>();
             app.MapControllers();
             return app;
         }

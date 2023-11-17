@@ -1,6 +1,7 @@
 ﻿using EventApi.Application.Contract;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Contract;
+using EventApi.Percistence.Repositories.Base;
 
 namespace EventApi.Percistence.Repositories
 {
