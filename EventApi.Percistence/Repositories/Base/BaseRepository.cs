@@ -17,10 +17,18 @@ namespace EventApi.Percistence.Repositories.Base
 
         public virtual async Task<T> AddAsync(T entity)
         {
+            try
+            {
+                await _dbContext.Set<T>().AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception)
+            {
 
-            await _dbContext.Set<T>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
+                throw;
+            }
+
         }
 
         public virtual async Task DeleteAsync(T entity)
@@ -38,7 +46,10 @@ namespace EventApi.Percistence.Repositories.Base
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
-
+        public virtual IQueryable<T> ListAllDataBaseAsync()
+        {
+            return _dbContext.Set<T>().AsQueryable();
+        }
         public virtual async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;

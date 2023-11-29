@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using EventApi.Application.Features.OcupationSrv.Queries.GetByIdAsync;
 using EventApi.Application.Features.SubContractorSrv.Command.PostCommand;
 using EventApi.Application.Features.SubContractorSrv.Command.PutCommand;
 using EventApi.Application.Features.SubContractorSrv.Queries.GetAllAsync;

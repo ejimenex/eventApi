@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EventApi.Application.Features.UsersSrv.Queries.GetAllUser
 {
-    public class GetAllUserQuery:IRequest<GetAllUserVM>
+    public class GetAllUserQuery : IRequest<GetAllUserVM>
     {
         public int Page { get; set; }
         public int Size { get; set; }
@@ -15,9 +15,9 @@ namespace EventApi.Application.Features.UsersSrv.Queries.GetAllUser
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public GetAllUserQueryHandler(IUserRepository userRepository,IMapper mapper)
+        public GetAllUserQueryHandler(IUserRepository userRepository, IMapper mapper)
         {
-                _mapper = mapper;
+            _mapper = mapper;
             _userRepository = userRepository;
         }
 

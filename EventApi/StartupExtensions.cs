@@ -1,7 +1,9 @@
-﻿
-using EventApi.Application;
+﻿using EventApi.Application;
+using EventApi.Domain.Entities;
 using EventApi.Infrasestructure;
 using EventApi.Percistence;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.ModelBuilder;
 namespace EventApi
 {
     public static class StartupExtensions
@@ -25,7 +27,12 @@ namespace EventApi
             {
                 options.Filters.Add(typeof(GlobalExceptionFilter));
             });
-
+            var modelBuilder = new ODataConventionModelBuilder();
+            modelBuilder.EntitySet<Activities>("Activities");
+            builder.Services.AddControllers().AddOData(
+    options => options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(null).AddRouteComponents(
+        "odata",
+        modelBuilder.GetEdmModel()));
             builder.Services.AddApplicationServices();
             builder.Services.AddInfraestructureServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
@@ -45,6 +52,7 @@ namespace EventApi
             app.UseRouting();
             app.UseCors("Open");
             app.UseMiddleware<ExceptionMiddleware>();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
             app.MapControllers();
             return app;
         }

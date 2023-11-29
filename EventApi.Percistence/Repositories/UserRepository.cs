@@ -22,7 +22,7 @@ namespace EventApi.Percistence.Repositories
         {
             var tenantId = Task.Run(() => _tokenService.GetTokenData()).Result.TenantId;
             var data = _dbContext.User.Where(c => !c.IsDeleted && c.TenantId == tenantId)
-                .Include(c=> c.Ocupation)
+                .Include(c => c.Ocupation)
                .AsQueryable();
 
             data = filter.OcupationId is not null ? data.Where(c => c.OcupationId == filter.OcupationId) : data;

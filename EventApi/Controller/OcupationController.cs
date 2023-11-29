@@ -26,7 +26,7 @@ namespace EventApi.Controller
             return NoContent();
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetOcupationByIdDto>> GetById(int id)=> Ok(await _mediator.Send(new GetOcupationByIdQuery { Id = id }));
+        public async Task<ActionResult<GetOcupationByIdDto>> GetById(int id) => Ok(await _mediator.Send(new GetOcupationByIdQuery { Id = id }));
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(int id) => Ok(await _mediator.Send(new DeleteOcupationCommand { Id = id }));
 

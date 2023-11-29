@@ -12,6 +12,7 @@ public class EventApiDbContext : DbContext
         this.tokenRepository = tokenRepository;
     }
     public DbSet<Activities> Activities { get; set; }
+    public DbSet<Statu> Statu { get; set; }
     public DbSet<User> User { get; set; }
     public DbSet<Country> Country { get; set; }
     public DbSet<Company> Company { get; set; }

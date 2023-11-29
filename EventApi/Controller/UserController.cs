@@ -1,5 +1,4 @@
-﻿using EventApi.Application.Features.SubContractorSrv.Queries.GetAllAsync;
-using EventApi.Application.Features.UsersSrv.Command.Post;
+﻿using EventApi.Application.Features.UsersSrv.Command.Post;
 using EventApi.Application.Features.UsersSrv.Queries.GetAllUser;
 using EventApi.Infrasestructure.Filters;
 using EventApi.Infrasestructure.Model;
