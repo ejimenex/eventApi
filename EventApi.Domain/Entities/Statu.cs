@@ -7,5 +7,6 @@ namespace EventApi.Domain.Entities
     {
         public string Name { get; set;}
         public virtual ICollection<Activities> Activities { get; set; }
+        public virtual ICollection<ActivitiesEvents> ActivitiesEvents { get; set; }
     }
 }

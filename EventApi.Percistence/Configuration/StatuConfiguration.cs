@@ -10,6 +10,7 @@ namespace EventApi.Percistence.Configuration
         {
             builder.ToTable("Statu", "Catalog");
             builder.HasMany(c => c.Activities).WithOne(c => c.Statu);
+            builder.HasMany(c => c.ActivitiesEvents).WithOne(c => c.Statu);
         }
 
     }

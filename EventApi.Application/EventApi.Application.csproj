@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Features\ActivitiesSrv\Command\ActivitiesPuet\" />
     <Folder Include="Features\CompanySrv\Command\Remove\" />
     <Folder Include="Features\UsersSrv\Command\Put\" />
     <Folder Include="NewFolder\" />

@@ -27,12 +27,8 @@ namespace EventApi
             {
                 options.Filters.Add(typeof(GlobalExceptionFilter));
             });
-            var modelBuilder = new ODataConventionModelBuilder();
-            modelBuilder.EntitySet<Activities>("Activities");
-            builder.Services.AddControllers().AddOData(
-    options => options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(null).AddRouteComponents(
-        "odata",
-        modelBuilder.GetEdmModel()));
+          
+            
             builder.Services.AddApplicationServices();
             builder.Services.AddInfraestructureServices();
             builder.Services.AddPersistenceServices(builder.Configuration);

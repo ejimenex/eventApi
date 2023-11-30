@@ -1,5 +1,7 @@
 ﻿using EventApi.Application.Features.ActivitiesSrv.Command.ActivitiesPost;
+using EventApi.Application.Features.ActivitiesSrv.Command.ActivitiesPut;
 using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesGetAll;
+using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesGetById;
 using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesPaged;
 using EventApi.Application.Features.SubContractorSrv.Queries.GetAllAsync;
 using EventApi.Infrasestructure.Filters;
@@ -12,7 +14,7 @@ namespace EventApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivitiesController : ODataController
+    public class ActivitiesController : ControllerBase
     {
         private readonly IMediator _mediator;
         public ActivitiesController(IMediator mediator)
@@ -44,6 +46,13 @@ namespace EventApi.Controller
 
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(ActivitiesPostCommand dto) => Ok(await _mediator.Send(dto));
+
+        [HttpPut]
+        public async Task<ActionResult<Unit>> Update(ActivitiesPutCommand dto) => Ok(await _mediator.Send(dto));
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetActivitiesByIdDto>> GetPaged(int id) =>
+        Ok(await _mediator.Send(new GetActivitiyByIdQuery() {Id=id }));
         [HttpGet]
         [Route("GetPaged")]
         public async Task<ActionResult<GetActivitiesPagedVM>> GetPaged([FromQuery] ActivitiesFilter filter, int page = 1, int size = 10) =>
