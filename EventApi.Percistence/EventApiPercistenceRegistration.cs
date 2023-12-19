@@ -24,6 +24,7 @@ namespace EventApi.Percistence
             services.AddScoped<ISubContractorRepository, SubContractorRepository>();
             services.AddScoped<IOcupationRepository, OcupationRepository>();
             services.AddScoped<IActivitiesEventsRepository, ActivitiesEventsRepository>();
+            services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 
             return services;
         }

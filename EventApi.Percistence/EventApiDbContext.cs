@@ -18,6 +18,7 @@ public class EventApiDbContext : DbContext
     public DbSet<Country> Country { get; set; }
     public DbSet<Company> Company { get; set; }
     public DbSet<Permission> Permission { get; set; }
+    public DbSet<Equipment> Equipment { get; set; }
     public DbSet<PermissionUser> PermissionUser { get; set; }
     public DbSet<SubContractors> SubContractors { get; set; }
     public DbSet<Ocupation> Ocupation { get; set; }

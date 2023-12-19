@@ -1,6 +1,8 @@
 ﻿using EventApi.Application;
+using EventApi.Application.Contract;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure;
+using EventApi.Infrasestructure.Filters;
 using EventApi.Percistence;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.ModelBuilder;
@@ -48,7 +50,7 @@ namespace EventApi
             app.UseRouting();
             app.UseCors("Open");
             app.UseMiddleware<ExceptionMiddleware>();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+     
             app.MapControllers();
             return app;
         }
