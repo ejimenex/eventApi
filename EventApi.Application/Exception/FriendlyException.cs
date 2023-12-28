@@ -8,6 +8,7 @@ namespace EventApi.Application.Exceptions
         public FriendlyException(ValidationResult validationResult)
         {
             ValidationErrors = new List<string>();
+
             foreach (var error in validationResult.Errors)
             {
                 ValidationErrors.Add(error.ErrorMessage);

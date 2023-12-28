@@ -11,20 +11,12 @@ namespace EventApi.Application.Features.UsersSrv.Queries.GetAllUser
         public int Size { get; set; }
         public UserFilter Filters { get; set; }
     }
-    public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, GetAllUserVM>
+    public class GetAllUserQueryHandler(IUserRepository _userRepository, IMapper _mapper) : IRequestHandler<GetAllUserQuery, GetAllUserVM>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
-        public GetAllUserQueryHandler(IUserRepository userRepository, IMapper mapper)
-        {
-            _mapper = mapper;
-            _userRepository = userRepository;
-        }
-
         public async Task<GetAllUserVM> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
         {
-            var list = await this._userRepository.GetPaged(request.Filters, request.Page, request.Size);
-            var count = await this._userRepository.GetCount(request.Filters);
+            var list = await _userRepository.GetPaged(request.Filters, request.Page, request.Size);
+            var count = await _userRepository.GetCount(request.Filters);
             var data = _mapper.Map<List<GetAllUserDto>>(list);
 
             return new GetAllUserVM()

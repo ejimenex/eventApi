@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using EventApi.Application.Contract;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesGetById
 {
-    public class GetActivitiyByIdQuery:IRequest<GetActivitiesByIdDto>
+    public class GetActivitiyByIdQuery : IRequest<GetActivitiesByIdDto>
     {
         public int Id { get; set; }
     }
@@ -19,8 +14,8 @@ namespace EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesGetById
         private readonly IActivitiesRepository _activitiesRepository;
         public GetActivitiyByIdQueryHandler(IMapper mapper, IActivitiesRepository activitiesRepository)
         {
-                _mapper = mapper;
-                _activitiesRepository = activitiesRepository;
+            _mapper = mapper;
+            _activitiesRepository = activitiesRepository;
         }
 
         public async Task<GetActivitiesByIdDto> Handle(GetActivitiyByIdQuery request, CancellationToken cancellationToken)

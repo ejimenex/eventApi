@@ -5,15 +5,8 @@ using MediatR;
 
 namespace EventApi.Application.Features.SubContractorSrv.Command.PutCommand
 {
-    public class SubContractorPutCommandHandler : IRequestHandler<SubContractorPutCommand, Unit>
+    public class SubContractorPutCommandHandler(IMapper _mapper, ISubContractorRepository _subContractorRepository) : IRequestHandler<SubContractorPutCommand, Unit>
     {
-        private readonly IMapper _mapper;
-        private readonly ISubContractorRepository _subContractorRepository;
-        public SubContractorPutCommandHandler(IMapper mapper, ISubContractorRepository subContractor)
-        {
-            _mapper = mapper;
-            _subContractorRepository = subContractor;
-        }
         public async Task<Unit> Handle(SubContractorPutCommand request, CancellationToken cancellationToken)
         {
             var entity = await _subContractorRepository.GetByIdAsync(request.Id);

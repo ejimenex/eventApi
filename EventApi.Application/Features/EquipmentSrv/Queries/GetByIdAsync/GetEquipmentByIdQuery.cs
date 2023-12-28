@@ -9,15 +9,9 @@ namespace EventApi.Application.Features.EquipmentSrv.Queries.GetByIdAsync
     {
         public int Id { get; set; }
     }
-    public class GetEquipmentByIdQueryHandler : IRequestHandler<GetEquipmentByIdQuery, EquipmentByIdDto>
+    public class GetEquipmentByIdQueryHandler(IEquipmentRepository _equipmentRepository, IMapper _mapper) : IRequestHandler<GetEquipmentByIdQuery, EquipmentByIdDto>
     {
-        private readonly IEquipmentRepository _equipmentRepository;
-        private readonly IMapper _mapper;
-        public GetEquipmentByIdQueryHandler(IEquipmentRepository equipmentRepository, IMapper mapper)
-        {
-            _equipmentRepository = equipmentRepository;
-            _mapper = mapper;
-        }
+
         public async Task<EquipmentByIdDto> Handle(GetEquipmentByIdQuery request, CancellationToken cancellationToken)
         {
             var entity = await _equipmentRepository.GetByIdAsync(request.Id);

@@ -6,15 +6,8 @@ using MediatR;
 
 namespace EventApi.Application.Features.EquipmentSrv.Command.PostCommand
 {
-    public class EquipmentPostCommandHandler : IRequestHandler<EquipmentPostCommand, ApiResponse<EquipmentPostCommandDto>>
+    public class EquipmentPostCommandHandler(IMapper _mapper, IEquipmentRepository _equipmentRepository) : IRequestHandler<EquipmentPostCommand, ApiResponse<EquipmentPostCommandDto>>
     {
-        private readonly IMapper _mapper;
-        private readonly IEquipmentRepository _equipmentRepository;
-        public EquipmentPostCommandHandler(IMapper mapper, IEquipmentRepository equipmentRepository)
-        {
-            _mapper = mapper;
-            _equipmentRepository = equipmentRepository;
-        }
 
         public async Task<ApiResponse<EquipmentPostCommandDto>> Handle(EquipmentPostCommand request, CancellationToken cancellationToken)
         {

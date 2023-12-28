@@ -3,12 +3,10 @@ using EventApi.Application.Features.ActivitiesSrv.Command.ActivitiesPut;
 using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesGetAll;
 using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesGetById;
 using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesPaged;
-using EventApi.Application.Features.SubContractorSrv.Queries.GetAllAsync;
 using EventApi.Infrasestructure.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace EventApi.Controller
 {
@@ -52,7 +50,7 @@ namespace EventApi.Controller
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GetActivitiesByIdDto>> GetPaged(int id) =>
-        Ok(await _mediator.Send(new GetActivitiyByIdQuery() {Id=id }));
+        Ok(await _mediator.Send(new GetActivitiyByIdQuery() { Id = id }));
         [HttpGet]
         [Route("GetPaged")]
         public async Task<ActionResult<GetActivitiesPagedVM>> GetPaged([FromQuery] ActivitiesFilter filter, int page = 1, int size = 10) =>

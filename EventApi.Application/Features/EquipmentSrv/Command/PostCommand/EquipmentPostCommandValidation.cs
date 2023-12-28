@@ -1,5 +1,4 @@
 ﻿using EventApi.Application.Contract;
-using EventApi.Application.Features.EquipmentSrv.Command.PostCommand;
 using FluentValidation;
 
 namespace EventApi.Application.Features.EquipmentSrv.Command.PostCommand

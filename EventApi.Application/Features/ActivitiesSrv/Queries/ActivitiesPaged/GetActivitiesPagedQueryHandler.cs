@@ -5,20 +5,14 @@ using MediatR;
 
 namespace EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesPaged
 {
-    public class GetActivitiesPagedQueryHandler : IRequestHandler<GetActivitiesPagedQuery, GetActivitiesPagedVM>
+    public class GetActivitiesPagedQueryHandler(IMapper _mapper, IActivitiesRepository _activitiesRepository) : IRequestHandler<GetActivitiesPagedQuery, GetActivitiesPagedVM>
     {
-        private readonly IMapper _mapper;
-        private readonly IActivitiesRepository _activitiesRepository;
-        public GetActivitiesPagedQueryHandler(IMapper mapper, IActivitiesRepository activitiesRepository)
-        {
-            _mapper = mapper;
-            _activitiesRepository = activitiesRepository;
-        }
+
 
         public async Task<GetActivitiesPagedVM> Handle(GetActivitiesPagedQuery request, CancellationToken cancellationToken)
         {
-            var list = await this._activitiesRepository.GetPaged(request.Filter, request.Page, request.Size);
-            var count = await this._activitiesRepository.GetCount(request.Filter);
+            var list = await _activitiesRepository.GetPaged(request.Filter, request.Page, request.Size);
+            var count = await _activitiesRepository.GetCount(request.Filter);
             var data = _mapper.Map<List<GetActivitiesPagesDto>>(list);
 
             return new GetActivitiesPagedVM()

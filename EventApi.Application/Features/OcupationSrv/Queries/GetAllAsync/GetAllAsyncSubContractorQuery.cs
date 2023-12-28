@@ -11,21 +11,13 @@ namespace EventApi.Application.Features.OcupationSrv.Queries.GetAllAsync
         public int Size { get; set; }
         public OcupationFilter Filters { get; set; }
     }
-    public class GetAllAsyncOcupationQueryHandle : IRequestHandler<GetAllAsyncOcupationrQuery, GetAllOcupationVM>
+    public class GetAllAsyncOcupationQueryHandle(IOcupationRepository _repositoryFactory, IMapper _mapper) : IRequestHandler<GetAllAsyncOcupationrQuery, GetAllOcupationVM>
     {
-        private readonly IOcupationRepository _repositoryFactory;
-        private readonly IMapper _mapper;
-        public GetAllAsyncOcupationQueryHandle(IOcupationRepository repositoryFactory, IMapper mapper)
-        {
-            _repositoryFactory = repositoryFactory;
-            _mapper = mapper;
-        }
-
         public async Task<GetAllOcupationVM> Handle(GetAllAsyncOcupationrQuery request, CancellationToken cancellationToken)
         {
 
-            var list = await this._repositoryFactory.GetPaged(request.Filters, request.Page, request.Size);
-            var count = await this._repositoryFactory.GetCount(request.Filters);
+            var list = await _repositoryFactory.GetPaged(request.Filters, request.Page, request.Size);
+            var count = await _repositoryFactory.GetCount(request.Filters);
             var data = _mapper.Map<List<GetAllOcupationDto>>(list);
 
             return new GetAllOcupationVM()

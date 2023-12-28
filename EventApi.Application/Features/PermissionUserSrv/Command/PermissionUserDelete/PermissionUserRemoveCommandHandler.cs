@@ -5,13 +5,8 @@ using MediatR;
 
 namespace EventApi.Application.Features.PermissionUserSrv.Command.PermissionUserDelete
 {
-    public class PermissionUserRemoveCommandHandler : IRequestHandler<PermissionUserDeleteCommand, bool>
+    public class PermissionUserRemoveCommandHandler(IPermissionUserRepository _permissionUserRepository) : IRequestHandler<PermissionUserDeleteCommand, bool>
     {
-        private readonly IPermissionUserRepository _permissionUserRepository;
-        public PermissionUserRemoveCommandHandler(IPermissionUserRepository permissionUserRepository)
-        {
-            _permissionUserRepository = permissionUserRepository;
-        }
 
         public async Task<bool> Handle(PermissionUserDeleteCommand request, CancellationToken cancellationToken)
         {

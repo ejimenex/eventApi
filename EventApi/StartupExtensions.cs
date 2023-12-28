@@ -1,11 +1,6 @@
 ﻿using EventApi.Application;
-using EventApi.Application.Contract;
-using EventApi.Domain.Entities;
 using EventApi.Infrasestructure;
-using EventApi.Infrasestructure.Filters;
 using EventApi.Percistence;
-using Microsoft.AspNetCore.OData;
-using Microsoft.OData.ModelBuilder;
 namespace EventApi
 {
     public static class StartupExtensions
@@ -25,12 +20,12 @@ namespace EventApi
         public static WebApplication ConfigureService(this WebApplicationBuilder builder)
         {
             AddSwagger(builder.Services);
-            builder.Services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(GlobalExceptionFilter));
-            });
-          
-            
+            //builder.Services.AddMvc(options =>
+            //{
+            //    options.Filters.Add(typeof(GlobalExceptionFilter));
+            //});
+
+
             builder.Services.AddApplicationServices();
             builder.Services.AddInfraestructureServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
@@ -49,8 +44,8 @@ namespace EventApi
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors("Open");
-            app.UseMiddleware<ExceptionMiddleware>();
-     
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             app.MapControllers();
             return app;
         }

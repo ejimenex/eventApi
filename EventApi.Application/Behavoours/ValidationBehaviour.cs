@@ -1,35 +1,29 @@
-﻿using FluentValidation;
+﻿using EventApi.Application.Exceptions;
+using FluentValidation;
 using MediatR;
 
-namespace EventApi.Application.Behavoours
+namespace EventApi.Application.Behavoours;
+public class ValidationBehavior<TRequest, TResult>(IEnumerable<IValidator<TRequest>> validators) :
+ IPipelineBehavior<TRequest, TResult> where TRequest : IRequest<TResult>
 {
-    public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    public async Task<TResult> Handle(TRequest request, RequestHandlerDelegate<TResult> next, CancellationToken cancellationToken)
     {
-        private readonly IEnumerable<IValidator<TRequest>> _validators;
-
-        public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+        if (validators.Any())
         {
-            _validators = validators;
+            var context = new ValidationContext<TRequest>(request);
+            var validationResults = await Task.WhenAll(validators.Select(v => v.ValidateAsync(context, cancellationToken)));
+            var failures = validationResults
+                .Where(validationResult => !validationResult.IsValid)
+                .SelectMany(validationResult => validationResult.Errors)
+                .Select(failure => new ValidationError(
+                    failure.PropertyName,
+                    failure.ErrorMessage))
+                .ToList();
+
+            if (failures.Count != 0)
+                throw new FluentValidationException(failures);
         }
 
-        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
-        {
-            if (_validators.Any())
-            {
-                var context = new ValidationContext<TRequest>(request);
-
-                var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
-
-                var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
-
-                if (failures.Count != 0)
-                {
-                    throw new ValidationException(failures);
-                }
-
-            }
-
-            return await next();
-        }
+        return await next();
     }
 }

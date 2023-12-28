@@ -1,5 +1,4 @@
 ﻿using EventApi.Application.Contract;
-using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesPaged;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Contract;
 using EventApi.Infrasestructure.Filters;
@@ -36,8 +35,8 @@ namespace EventApi.Percistence.Repositories
             var tenantId = Task.Run(() => _tokenService.GetTokenData()).Result.TenantId;
             var data = _dbContext.Activities
                 .Where(c => !c.IsDeleted && c.TenantId == tenantId)
-                .Include(c=> c.Statu)
-                .OrderByDescending(c=> c.Id)
+                .Include(c => c.Statu)
+                .OrderByDescending(c => c.Id)
                .AsQueryable();
 
             data = !string.IsNullOrEmpty(filter.name) ? data.Where(c => c.Name.Contains(filter.name)) : data;

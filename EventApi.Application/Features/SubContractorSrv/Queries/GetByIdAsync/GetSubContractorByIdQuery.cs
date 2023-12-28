@@ -9,15 +9,9 @@ namespace EventApi.Application.Features.SubContractorSrv.Queries.GetByIdAsync
     {
         public int Id { get; set; }
     }
-    public class GetSubContractorByIdQueryHandler : IRequestHandler<GetSubContractorByIdQuery, SubContractorByIdDto>
+    public class GetSubContractorByIdQueryHandler(ISubContractorRepository _subContractorRepository, IMapper _mapper) : IRequestHandler<GetSubContractorByIdQuery, SubContractorByIdDto>
     {
-        private readonly ISubContractorRepository _subContractorRepository;
-        private readonly IMapper _mapper;
-        public GetSubContractorByIdQueryHandler(ISubContractorRepository subContractorRepository, IMapper mapper)
-        {
-            _subContractorRepository = subContractorRepository;
-            _mapper = mapper;
-        }
+
         public async Task<SubContractorByIdDto> Handle(GetSubContractorByIdQuery request, CancellationToken cancellationToken)
         {
             var entity = await _subContractorRepository.GetByIdAsync(request.Id);

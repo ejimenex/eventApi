@@ -8,20 +8,13 @@ using MediatR;
 
 namespace EventApi.Application.Features.UsersSrv.Command.Post
 {
-    public class UserCommandHandler : IRequestHandler<UserCommand, ApiResponse<UserDto>>
+    public class UserCommandHandler(IUserRepository _userRepository, IMapper _mapper) : IRequestHandler<UserCommand, ApiResponse<UserDto>>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
-        public UserCommandHandler(IUserRepository userRepository, IMapper mapper)
-        {
-            _userRepository = userRepository;
-            _mapper = mapper;
-        }
 
         public async Task<ApiResponse<UserDto>> Handle(UserCommand request, CancellationToken cancellationToken)
         {
 
-            var validator = new UserValidation(this._userRepository);
+            var validator = new UserValidation(_userRepository);
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             if (validationResult.Errors.Any())

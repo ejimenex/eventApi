@@ -11,21 +11,14 @@ namespace EventApi.Application.Features.EquipmentSrv.Queries.GetAllAsync
         public int Size { get; set; }
         public EquipmentFilter Filters { get; set; }
     }
-    public class GetAllAsyncSubContractorQueryHandle : IRequestHandler<GetAllAsyncEquipmentQuery, GetAllEquipmentVM>
+    public class GetAllAsyncSubContractorQueryHandle(IEquipmentRepository _repositoryFactory, IMapper _mapper) : IRequestHandler<GetAllAsyncEquipmentQuery, GetAllEquipmentVM>
     {
-        private readonly IEquipmentRepository _repositoryFactory;
-        private readonly IMapper _mapper;
-        public GetAllAsyncSubContractorQueryHandle(IEquipmentRepository repositoryFactory, IMapper mapper)
-        {
-            _repositoryFactory = repositoryFactory;
-            _mapper = mapper;
-        }
 
         public async Task<GetAllEquipmentVM> Handle(GetAllAsyncEquipmentQuery request, CancellationToken cancellationToken)
         {
 
-            var list = await this._repositoryFactory.GetPaged(request.Filters, request.Page, request.Size);
-            var count = await this._repositoryFactory.GetCount(request.Filters);
+            var list = await _repositoryFactory.GetPaged(request.Filters, request.Page, request.Size);
+            var count = await _repositoryFactory.GetCount(request.Filters);
             var data = _mapper.Map<List<GetAllEquipmentDto>>(list);
 
             return new GetAllEquipmentVM()

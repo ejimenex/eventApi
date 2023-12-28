@@ -1,5 +1,4 @@
 ﻿using EventApi.Application.Contract.Persistence;
-using EventApi.Application.Features.ActivitiesSrv.Queries.ActivitiesPaged;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Filters;
 

@@ -1,9 +1,7 @@
 ﻿using EventApi.Application.Contract;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Contract;
-using EventApi.Infrasestructure.Filters;
 using EventApi.Percistence.Repositories.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
 {
@@ -19,6 +17,6 @@ namespace EventApi.Percistence.Repositories
             entity.TenantId = (await _tokenService.GetTokenData()).TenantId;
             return await base.AddAsync(entity);
         }
-      
+
     }
 }

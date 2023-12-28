@@ -1,6 +1,4 @@
-﻿using EventApi.Application.Contract;
-using EventApi.Application.Features.EquipmentSrv.Command.PutCommand;
-using EventApi.Application.Features.SubContractorSrv.Command.PutCommand;
+﻿using EventApi.Application.Features.EquipmentSrv.Command.PutCommand;
 using FluentValidation;
 
 namespace EventApi.Application.Features.EquipmentSrv.Command.PostCommand

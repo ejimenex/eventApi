@@ -1,5 +1,4 @@
 ﻿using EventApi.Domain.Common;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventApi.Domain.Entities
 {

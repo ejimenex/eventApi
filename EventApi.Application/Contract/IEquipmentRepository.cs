@@ -4,7 +4,7 @@ using EventApi.Infrasestructure.Filters;
 
 namespace EventApi.Application.Contract
 {
-    public interface IEquipmentRepository:IAsyncRepository<Equipment>
+    public interface IEquipmentRepository : IAsyncRepository<Equipment>
     {
         Task<bool> ExistEquipent(string name);
         Task<int> GetCount(EquipmentFilter filter);

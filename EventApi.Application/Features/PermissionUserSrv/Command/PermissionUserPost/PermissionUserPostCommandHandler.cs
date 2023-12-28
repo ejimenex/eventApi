@@ -6,19 +6,12 @@ using MediatR;
 
 namespace EventApi.Application.Features.PermissionUserSrv.Command.PermissionUserPost
 {
-    public class PermissionUserPostCommandHandler : IRequestHandler<PermissionUserPostCommand, bool>
+    public class PermissionUserPostCommandHandler(IPermissionUserRepository _permissionUserRepository, IMapper _mapper) : IRequestHandler<PermissionUserPostCommand, bool>
     {
-        private readonly IPermissionUserRepository _permissionUserRepository;
-        private readonly IMapper _mapper;
-        public PermissionUserPostCommandHandler(IPermissionUserRepository permissionUserRepository, IMapper mapper)
-        {
-            _permissionUserRepository = permissionUserRepository;
-            _mapper = mapper;
-        }
 
         public async Task<bool> Handle(PermissionUserPostCommand request, CancellationToken cancellationToken)
         {
-            var validator = new PermissionUserPostValidation(this._permissionUserRepository);
+            var validator = new PermissionUserPostValidation(_permissionUserRepository);
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             if (validationResult.Errors.Any())
