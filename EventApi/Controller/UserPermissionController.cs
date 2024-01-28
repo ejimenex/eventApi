@@ -7,16 +7,11 @@ namespace EventApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserPermissionController : ControllerBase
+    public class UserPermissionController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public UserPermissionController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [HttpDelete]
-        public async Task<ActionResult<bool>> Delete(int id) => Ok(await _mediator.Send(new PermissionUserDeleteCommand { Id = id }));
+        public async Task<ActionResult<bool>> Delete(int id) => Ok(await mediator.Send(new PermissionUserDeleteCommand { Id = id }));
         [HttpPost]
-        public async Task<ActionResult<bool>> Save(PermissionUserPostCommand dto) => Ok(await _mediator.Send(dto));
+        public async Task<ActionResult<bool>> Save(PermissionUserPostCommand dto) => Ok(await mediator.Send(dto));
     }
 }

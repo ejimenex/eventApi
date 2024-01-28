@@ -9,17 +9,12 @@ namespace EventApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public UserController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [HttpGet("GetPaged")]
         public async Task<ActionResult<GetAllUserVM>> GetPaged([FromQuery] UserFilter filter, int page = 1, int size = 10) =>
-           Ok(await _mediator.Send(new GetAllUserQuery() { Filters = filter, Page = page, Size = size }));
+           Ok(await mediator.Send(new GetAllUserQuery() { Filters = filter, Page = page, Size = size }));
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<UserDto>>> Create(UserCommand dto) => Ok(await _mediator.Send(dto));
+        public async Task<ActionResult<ApiResponse<UserDto>>> Create(UserCommand dto) => Ok(await mediator.Send(dto));
     }
 }

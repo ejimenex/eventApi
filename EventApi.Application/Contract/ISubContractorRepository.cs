@@ -8,6 +8,6 @@ namespace EventApi.Application.Contract
     {
         Task<bool> ExistESubContractor(string name);
         Task<int> GetCount(SubContractorFilter filter);
-        Task<List<SubContractors>> GetPaged(SubContractorFilter filter, int page, int size);
+        Task<List<SubContractors>> GetPaged(SubContractorFilter filter, int page);
     }
 }

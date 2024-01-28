@@ -7,13 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
 {
-    public class OcupationRepository : BaseRepository<Ocupation>, IOcupationRepository
+    public class OcupationRepository(EventApiDbContext context, ITokenService token) : BaseRepository<Ocupation>(context, token), IOcupationRepository
     {
-        public OcupationRepository(EventApiDbContext context, ITokenService token) : base(context, token)
-        {
-
-        }
-
         public override async Task<Ocupation> AddAsync(Ocupation entity)
         {
             entity.TenantId = (await _tokenService.GetTokenData()).TenantId;
@@ -38,7 +33,7 @@ namespace EventApi.Percistence.Repositories
         {
             var data = GetIQuerable(filter);
             var result = await data
-                .Skip((page - 1) * size)
+               .Skip((page - 1) * size)
                 .Take(size)
                 .AsNoTracking()
                 .ToListAsync();

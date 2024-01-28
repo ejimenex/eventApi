@@ -7,13 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
 {
-    public class ActivitiesRepository : BaseRepository<Activities>, IActivitiesRepository
+    public class ActivitiesRepository(EventApiDbContext context, ITokenService token) : BaseRepository<Activities>(context, token), IActivitiesRepository
     {
-        public ActivitiesRepository(EventApiDbContext context, ITokenService token) : base(context, token)
-        {
-
-        }
-
         public async Task<int> GetCount(ActivitiesFilter filter)
         {
             return await GetIQuerable(filter).CountAsync();

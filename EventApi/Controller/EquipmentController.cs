@@ -12,31 +12,26 @@ namespace EventApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EquipmentController : ControllerBase
+    public class EquipmentController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public EquipmentController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [HttpPut]
         public async Task<ActionResult<Unit>> Update(EquipmentPutCommand dto)
         {
-            await _mediator.Send(dto);
+            await mediator.Send(dto);
             return NoContent();
         }
         [HttpGet]
         public async Task<ActionResult<Result<IReadOnlyList<Equipment>>>> GetAll([FromQuery] GetAllAsyncEquipmentQuery query)
         {
-            return Ok(await _mediator.Send(query));
+            return Ok(await mediator.Send(query));
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<EquipmentByIdDto>> GetById(int id) => Ok(await _mediator.Send(new GetEquipmentByIdQuery { Id = id }));
+        public async Task<ActionResult<EquipmentByIdDto>> GetById(int id) => Ok(await mediator.Send(new GetEquipmentByIdQuery { Id = id }));
         [HttpGet("GetPaged")]
         public async Task<ActionResult<GetAllEquipmentVM>> GetPaged([FromQuery] EquipmentFilter filter, int page = 1, int size = 10) =>
-        Ok(await _mediator.Send(new GetAllAsyncEquipmentQuery() { Filters = filter, Page = page, Size = size }));
+        Ok(await mediator.Send(new GetAllAsyncEquipmentQuery() { Filters = filter, Page = page, Size = size }));
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<EquipmentPostCommandDto>>> Create(EquipmentPostCommand dto) => Ok(await _mediator.Send(dto));
+        public async Task<ActionResult<ApiResponse<EquipmentPostCommandDto>>> Create(EquipmentPostCommand dto) => Ok(await mediator.Send(dto));
     }
 }

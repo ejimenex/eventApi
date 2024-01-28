@@ -3,6 +3,7 @@ using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Contract;
 using EventApi.Infrasestructure.Filters;
 using EventApi.Percistence.Repositories.Base;
+using EventApi.Percistence.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
@@ -21,11 +22,7 @@ namespace EventApi.Percistence.Repositories
         public async Task<List<Equipment>> GetPaged(EquipmentFilter filter, int page, int size)
         {
             var data = GetIQuerable(filter);
-            var result = await data
-                .Skip((page - 1) * size)
-                .Take(size)
-                .AsNoTracking()
-                .ToListAsync();
+            var result = await ExtensionsList<Equipment>.ToPagination(data, page);
             return result;
         }
         private IQueryable<Equipment> GetIQuerable(EquipmentFilter filter)

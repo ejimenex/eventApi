@@ -7,13 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
 {
-    public class UserRepository : BaseRepository<User>, IUserRepository
+    public class UserRepository(EventApiDbContext context, ITokenService token) : BaseRepository<User>(context, token), IUserRepository
     {
-        public UserRepository(EventApiDbContext context, ITokenService token) : base(context, token)
-        {
-
-        }
-
         public async Task<bool> ExistEmail(string email)
         {
             return await _dbContext.User.AnyAsync(c => c.Email == email && !c.IsDeleted);

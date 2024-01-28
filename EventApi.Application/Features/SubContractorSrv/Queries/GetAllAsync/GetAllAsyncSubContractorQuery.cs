@@ -16,7 +16,7 @@ namespace EventApi.Application.Features.SubContractorSrv.Queries.GetAllAsync
         public async Task<GetAllSubContractorVM> Handle(GetAllAsyncSubContractorQuery request, CancellationToken cancellationToken)
         {
 
-            var list = await _repositoryFactory.GetPaged(request.Filters, request.Page, request.Size);
+            var list = await _repositoryFactory.GetPaged(request.Filters, request.Page);
             var count = await _repositoryFactory.GetCount(request.Filters);
             var data = _mapper.Map<List<GetAllSusContractorDto>>(list);
 

@@ -6,14 +6,9 @@ namespace EventApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticateController : ControllerBase
+    public class AuthenticateController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public AuthenticateController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [HttpPost]
-        public async Task<ActionResult<TokenResponse>> Create(AutenticateCommand dto) => Ok(await _mediator.Send(dto));
+        public async Task<ActionResult<TokenResponse>> Create(AutenticateCommand dto) => Ok(await mediator.Send(dto));
     }
 }

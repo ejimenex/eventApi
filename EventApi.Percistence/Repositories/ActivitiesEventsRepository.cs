@@ -5,13 +5,8 @@ using EventApi.Percistence.Repositories.Base;
 
 namespace EventApi.Percistence.Repositories
 {
-    public class ActivitiesEventsRepository : BaseRepository<ActivitiesEvents>, IActivitiesEventsRepository
+    public class ActivitiesEventsRepository(EventApiDbContext context, ITokenService token) : BaseRepository<ActivitiesEvents>(context, token), IActivitiesEventsRepository
     {
-        public ActivitiesEventsRepository(EventApiDbContext context, ITokenService token) : base(context, token)
-        {
-
-        }
-
         public override async Task<ActivitiesEvents> AddAsync(ActivitiesEvents entity)
         {
             entity.TenantId = (await _tokenService.GetTokenData()).TenantId;

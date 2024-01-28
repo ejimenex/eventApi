@@ -12,18 +12,13 @@ namespace EventApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivitiesController : ControllerBase
+    public class ActivitiesController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public ActivitiesController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [EnableQuery]
         [HttpGet]
         public ActionResult<IEnumerable<GetAllActivitiesDto>> Get()
         {
-            return Ok(_mediator.Send(new GetAllActivitiesQuery()));
+            return Ok(mediator.Send(new GetAllActivitiesQuery()));
         }
         //[HttpPut]
         //public async Task<ActionResult<Unit>> Update(SubContractorPutCommand dto)
@@ -43,17 +38,17 @@ namespace EventApi.Controller
         //    Ok(await _mediator.Send(new GetAllAsyncSubContractorQuery() { Filters = filter, Page = page, Size = size }));
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(ActivitiesPostCommand dto) => Ok(await _mediator.Send(dto));
+        public async Task<ActionResult<Unit>> Create(ActivitiesPostCommand dto) => Ok(await mediator.Send(dto));
 
         [HttpPut]
-        public async Task<ActionResult<Unit>> Update(ActivitiesPutCommand dto) => Ok(await _mediator.Send(dto));
+        public async Task<ActionResult<Unit>> Update(ActivitiesPutCommand dto) => Ok(await mediator.Send(dto));
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GetActivitiesByIdDto>> GetPaged(int id) =>
-        Ok(await _mediator.Send(new GetActivitiyByIdQuery() { Id = id }));
+        Ok(await mediator.Send(new GetActivitiyByIdQuery() { Id = id }));
         [HttpGet]
         [Route("GetPaged")]
         public async Task<ActionResult<GetActivitiesPagedVM>> GetPaged([FromQuery] ActivitiesFilter filter, int page = 1, int size = 10) =>
-        Ok(await _mediator.Send(new GetActivitiesPagedQuery() { Filter = filter, Page = page, Size = size }));
+        Ok(await mediator.Send(new GetActivitiesPagedQuery() { Filter = filter, Page = page, Size = size }));
     }
 }

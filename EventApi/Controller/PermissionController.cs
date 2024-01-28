@@ -6,14 +6,9 @@ namespace EventApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PermissionController : ControllerBase
+    public class PermissionController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public PermissionController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         [HttpGet]
-        public async Task<ActionResult<List<PemissionAllDto>>> Get() => Ok(await _mediator.Send(new PermissionAllQuery()));
+        public async Task<ActionResult<List<PemissionAllDto>>> Get() => Ok(await mediator.Send(new PermissionAllQuery()));
     }
 }

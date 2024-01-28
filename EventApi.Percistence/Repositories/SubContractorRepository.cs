@@ -3,17 +3,13 @@ using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Contract;
 using EventApi.Infrasestructure.Filters;
 using EventApi.Percistence.Repositories.Base;
+using EventApi.Percistence.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories
 {
-    public class SubContractorRepository : BaseRepository<SubContractors>, ISubContractorRepository
+    public class SubContractorRepository(EventApiDbContext context, ITokenService token) : BaseRepository<SubContractors>(context, token), ISubContractorRepository
     {
-        public SubContractorRepository(EventApiDbContext context, ITokenService token) : base(context, token)
-        {
-
-        }
-
         public override async Task<SubContractors> AddAsync(SubContractors entity)
         {
             entity.TenantId = (await _tokenService.GetTokenData()).TenantId;
@@ -35,14 +31,10 @@ namespace EventApi.Percistence.Repositories
             data = !string.IsNullOrEmpty(filter.Name) ? data.Where(c => c.Name.Contains(filter.Name)) : data;
             return data;
         }
-        public async Task<List<SubContractors>> GetPaged(SubContractorFilter filter, int page, int size)
+        public async Task<List<SubContractors>> GetPaged(SubContractorFilter filter, int page)
         {
             var data = GetIQuerable(filter);
-            var result = await data
-                .Skip((page - 1) * size)
-                .Take(size)
-                .AsNoTracking()
-                .ToListAsync();
+            var result = await ExtensionsList<SubContractors>.ToPagination(data, page);
             return result;
         }
         public async Task<int> GetCount(SubContractorFilter filter) => await GetIQuerable(filter).CountAsync();
