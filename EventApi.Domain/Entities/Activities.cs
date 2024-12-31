@@ -10,6 +10,8 @@ namespace EventApi.Domain.Entities
         public DateTime? EstimatedEndDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int StatusId { get; set; }
+        public int? CityId { get; set; }
         public virtual Statu Statu { get; set; }
+        public virtual City City { get; set; }
     }
 }

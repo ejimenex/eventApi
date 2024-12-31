@@ -10,7 +10,7 @@ namespace EventApi.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection service)
         {
-            service.AddAutoMapper(Assembly.GetExecutingAssembly());
+             service.AddAutoMapper(Assembly.GetExecutingAssembly());
             service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             service.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             service.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

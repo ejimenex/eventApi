@@ -22,6 +22,8 @@ public class EventApiDbContext : DbContext
     public DbSet<PermissionUser> PermissionUser { get; set; }
     public DbSet<SubContractors> SubContractors { get; set; }
     public DbSet<Ocupation> Ocupation { get; set; }
+    public DbSet<Warehouse> Warehouse { get; set; }
+    public DbSet<City> City { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventApiDbContext).Assembly);

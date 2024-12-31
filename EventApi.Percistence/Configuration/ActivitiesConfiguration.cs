@@ -13,6 +13,10 @@ namespace EventApi.Percistence.Configuration
                 .HasOne(c => c.Statu)
                 .WithMany(c => c.Activities)
                 .HasForeignKey(c => c.StatusId);
+            builder
+               .HasOne(c => c.City)
+               .WithMany(c => c.Activities)
+               .HasForeignKey(c => c.CityId);
         }
 
     }

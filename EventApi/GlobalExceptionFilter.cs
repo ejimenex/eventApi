@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EventApi.Application.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 
@@ -23,7 +24,9 @@ namespace EventApi
                     //    statusCode = (int)HttpStatusCode.Unauthorized;
                     //    break;
 
-
+                    case bool _ when exception is CustomException:
+                        statusCode = (int)HttpStatusCode.BadRequest;
+                        break;
                     case bool _ when exception is Exception:
                         statusCode = (int)HttpStatusCode.BadRequest;
                         break;

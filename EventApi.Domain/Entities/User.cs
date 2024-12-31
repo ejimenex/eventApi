@@ -11,6 +11,7 @@ namespace EventApi.Domain.Entities
         public Guid TenantId { get; set; }
         public DateTime LastLogin { get; set; }
         public int? OcupationId { get; set; }
+        public string LanguageCode { get; set; }
         public virtual Ocupation Ocupation { get; set; }
 
     }

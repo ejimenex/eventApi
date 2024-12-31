@@ -19,7 +19,8 @@ namespace EventApi.Application.Profiles
             CreateMap<Activities, GetActivitiesByIdDto>().ReverseMap();
 
             CreateMap<Activities, GetActivitiesPagesDto>()
-                .ForMember(cfg => cfg.StatusName, opt => opt.MapFrom(c => c.Statu.Name));
+                .ForMember(cfg => cfg.StatusName, opt => opt.MapFrom(c => c.Statu.Name))
+                .ForMember(cfg => cfg.CityName, opt => opt.MapFrom(c => c.City.Name));
         }
     }
 }

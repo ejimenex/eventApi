@@ -13,6 +13,7 @@ namespace EventApi.Application.Features.EquipmentSrv.Command.PostCommand
             RuleFor(p => p.Code).NotEmpty().WithMessage("Code it is required.");
             RuleFor(c => c).MustAsync(ValidateSubContractorExistExist).WithMessage("This sub-contractor already exist.");
         }
-        private async Task<bool> ValidateSubContractorExistExist(EquipmentPostCommand e, CancellationToken token) => (!await _equipmentRespository.ExistEquipent(e.Name));
+        private async Task<bool> ValidateSubContractorExistExist(EquipmentPostCommand e, CancellationToken token) => 
+            (!await _equipmentRespository.ExistEquipent(e.Name));
     }
 }

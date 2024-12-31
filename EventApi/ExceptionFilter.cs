@@ -1,5 +1,6 @@
 ﻿using EventApi.Application.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace EventApi;
 public class ExceptionHandlingMiddleware(
@@ -28,6 +29,25 @@ public class ExceptionHandlingMiddleware(
                 problemDetails.Extensions["errors"] = ex.Errors;
             }
 
+           context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            await context.Response.WriteAsJsonAsync(problemDetails);
+        }
+        catch (CustomException ex)
+        {
+            logger.LogError(ex, "Exception ocurred: {Message}", ex.Message);
+
+            var problemDetails = new ProblemDetails
+            {
+
+                Title = "Error interno",
+                Detail = ex.Message,
+            };
+
+            
+                problemDetails.Extensions["errors"] = ex.Message;
+            
+
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
     }

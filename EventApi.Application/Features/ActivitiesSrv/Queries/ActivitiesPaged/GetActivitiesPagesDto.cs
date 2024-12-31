@@ -9,6 +9,7 @@
         public DateTime? EstimatedEndDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int StatusId { get; set; }
+        public string CityName { get; set; }
         public string StatusName { get; set; }
     }
 }
