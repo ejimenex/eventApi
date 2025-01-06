@@ -15,7 +15,7 @@ namespace EventApi.Application.Features.EquipmentSrv.Command.PostCommand
             var entity = _mapper.Map<Equipment>(request);
             var dto = _mapper.Map<EquipmentPostCommandDto>(request);
             await _equipmentRepository.AddAsync(entity);
-            return new ApiResponse<EquipmentPostCommandDto> { Success = true, Message = "The equipment has been inserted", Object = dto };
+            return new ApiResponse<EquipmentPostCommandDto> { Success = true, Message = "The equipment has been inserted", Data = dto };
 
         }
     }

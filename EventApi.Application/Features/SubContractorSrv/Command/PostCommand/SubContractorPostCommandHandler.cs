@@ -15,7 +15,7 @@ namespace EventApi.Application.Features.SubContractorSrv.Command.PostCommand
             var entity = _mapper.Map<SubContractors>(request);
             var dto = _mapper.Map<SubContractorPostCommandDto>(request);
             await _subContractorRepository.AddAsync(entity);
-            return new ApiResponse<SubContractorPostCommandDto> { Success = true, Message = "The subcontractor has been inserted", Object = dto };
+            return new ApiResponse<SubContractorPostCommandDto> { Success = true, Message = "The subcontractor has been inserted", Data = dto };
 
         }
     }

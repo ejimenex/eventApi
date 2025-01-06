@@ -1,6 +1,7 @@
 ﻿using EventApi.Application.Contract;
 using EventApi.Domain.Entities;
 using EventApi.Infrasestructure.Contract;
+using EventApi.Infrasestructure.Extension;
 using EventApi.Infrasestructure.Filters;
 using EventApi.Percistence.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
@@ -16,23 +17,19 @@ namespace EventApi.Percistence.Repositories
         private IQueryable<User> GetIQuerable(UserFilter filter)
         {
             var tenantId = Task.Run(() => _tokenService.GetTokenData()).Result.TenantId;
-            var data = _dbContext.User.Where(c => !c.IsDeleted && c.TenantId == tenantId)
+            return _dbContext.User.Where(c => !c.IsDeleted && c.TenantId == tenantId)
+                .WhereIf(filter.OcupationId is not null, c => c.OcupationId == filter.OcupationId)
+                .WhereIf(!string.IsNullOrEmpty(filter.FullName), c => c.FullName.Contains(filter.FullName))
                 .Include(c => c.Ocupation)
                .AsQueryable();
-
-            data = filter.OcupationId is not null ? data.Where(c => c.OcupationId == filter.OcupationId) : data;
-            data = !string.IsNullOrEmpty(filter.FullName) ? data.Where(c => c.FullName.Contains(filter.FullName)) : data;
-            return data;
         }
-        public async Task<List<User>> GetPaged(UserFilter filter, int page, int size)
+        public async Task<(List<User>,int)> GetPaged(UserFilter filter, int page, int size)
         {
             var data = GetIQuerable(filter);
             var result = await data
-                .Skip((page - 1) * size)
-                .Take(size)
-                .AsNoTracking()
+                .PaginateResult(page, size)
                 .ToListAsync();
-            return result;
+            return (result,data.Count() );
         }
         public async Task<int> GetCount(UserFilter filter) => await GetIQuerable(filter).CountAsync();
 

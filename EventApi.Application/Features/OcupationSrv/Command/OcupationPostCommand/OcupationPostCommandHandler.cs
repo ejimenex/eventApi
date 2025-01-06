@@ -14,7 +14,7 @@ namespace EventApi.Application.Features.OcupationSrv.Command
             var entity = mapper.Map<Ocupation>(request);
             var dto = mapper.Map<OcupationrPostCommandDto>(request);
             await ocupationRepository.AddAsync(entity);
-            return new ApiResponse<OcupationrPostCommandDto> { Success = true, Message = "The ocupation has been inserted", Object = dto };
+            return new ApiResponse<OcupationrPostCommandDto> { Success = true, Message = "The ocupation has been inserted", Data = dto };
 
         }
     }

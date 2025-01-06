@@ -27,7 +27,7 @@ namespace EventApi.Application.Features.UsersSrv.Command.Post
             entity.IsDisabled = false;
             entity.LastLogin = DateTime.Now;
             await _userRepository.AddAsync(entity);
-            return new ApiResponse<UserDto> { Success = true, Message = "El usuario ha sido insertado", Object = dto };
+            return new ApiResponse<UserDto> { Success = true, Message = "El usuario ha sido insertado", Data = dto };
         }
     }
 }

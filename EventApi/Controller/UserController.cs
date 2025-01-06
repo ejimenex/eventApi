@@ -12,7 +12,7 @@ namespace EventApi.Controller
     public class UserController(IMediator mediator) : ControllerBase
     {
         [HttpGet("GetPaged")]
-        public async Task<ActionResult<GetAllUserVM>> GetPaged([FromQuery] UserFilter filter, int page = 1, int size = 10) =>
+        public async Task<ActionResult<ApiResponse<GetAllUserVM>>> GetPaged([FromQuery] UserFilter filter, int page = 1, int size = 10) =>
            Ok(await mediator.Send(new GetAllUserQuery() { Filters = filter, Page = page, Size = size }));
         [HttpPost]
         public async Task<ActionResult<ApiResponse<UserDto>>> Create(UserCommand dto) => Ok(await mediator.Send(dto));

@@ -26,7 +26,7 @@ namespace EventApi.Application.Features.CompanySrv.Command.PostCompany
             entity.IsDisabled = false;
             entity.UniqueId = Guid.NewGuid();
             await _companyRepository.AddAsync(entity);
-            return new ApiResponse<CompanyResposeDto> { Success = true, Message = "The company has been inserted", Object = dto };
+            return new ApiResponse<CompanyResposeDto> { Success = true, Message = "The company has been inserted", Data = dto };
 
         }
     }
