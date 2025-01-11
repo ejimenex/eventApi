@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EventApi.Application.Contract;
 using EventApi.Application.Exceptions;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Security;
 using MediatR;
 
 namespace EventApi.Application.Features.PermissionUserSrv.Command.PermissionUserPost

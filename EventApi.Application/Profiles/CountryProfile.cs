@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EventApi.Application.Features.CountrySrv.Queries.GetAllAsync;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Catalog;
 
 namespace EventApi.Application.Profiles
 {

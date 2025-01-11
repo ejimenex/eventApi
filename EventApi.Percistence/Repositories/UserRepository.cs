@@ -1,5 +1,5 @@
 ﻿using EventApi.Application.Contract;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Security;
 using EventApi.Infrasestructure.Contract;
 using EventApi.Infrasestructure.Extension;
 using EventApi.Infrasestructure.Filters;

@@ -2,6 +2,7 @@
 using EventApi.Domain.Common;
 using EventApi.Infrasestructure.Contract;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace EventApi.Percistence.Repositories.Base
 {
@@ -16,40 +17,29 @@ namespace EventApi.Percistence.Repositories.Base
         }
 
         public virtual async Task<T> AddAsync(T entity)
-        {
-            try
-            {
+        {         
                 await _dbContext.Set<T>().AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
                 return entity;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
         }
-
         public virtual async Task DeleteAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Deleted;
             await _dbContext.SaveChangesAsync();
         }
-
-        public virtual async Task<T> GetByIdAsync(int Id)
+        public IQueryable<T> GetWithInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            return await _dbContext.Set<T>().FindAsync(Id);
+            IQueryable<T> query = _dbContext.Set<T>();
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            return  query.Where(predicate);
         }
-
-        public virtual async Task<IReadOnlyList<T>> ListAllAsync()
-        {
-            return await _dbContext.Set<T>().ToListAsync();
-        }
-        public virtual IQueryable<T> ListAllDataBaseAsync()
-        {
-            return _dbContext.Set<T>().AsQueryable();
-        }
+        public virtual async Task<T> GetByIdAsync(int Id)=> await _dbContext.Set<T>().FindAsync(Id);        
+        public  IQueryable<T> GetByExpressionAsync(Expression<Func<T, bool>> expression)=> _dbContext.Set<T>().Where(expression).AsQueryable();        
+        public virtual async Task<IReadOnlyList<T>> ListAllAsync()=> await _dbContext.Set<T>().ToListAsync();        
+        public virtual IQueryable<T> ListAllDataBaseAsync()=> _dbContext.Set<T>().AsQueryable();        
         public virtual async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;

@@ -1,4 +1,5 @@
 ﻿using EventApi.Domain.Common;
+using EventApi.Domain.Entities.Catalog;
 
 namespace EventApi.Domain.Entities
 {

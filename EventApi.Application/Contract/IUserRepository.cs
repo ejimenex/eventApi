@@ -1,5 +1,5 @@
 ﻿using EventApi.Application.Contract.Persistence;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Security;
 using EventApi.Infrasestructure.Filters;
 
 namespace EventApi.Application.Contract

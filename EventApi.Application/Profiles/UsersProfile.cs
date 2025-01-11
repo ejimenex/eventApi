@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EventApi.Application.Features.UsersSrv.Command.Post;
 using EventApi.Application.Features.UsersSrv.Queries.GetAllUser;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Security;
 
 namespace EventApi.Application.Profiles
 {

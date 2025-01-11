@@ -2,7 +2,7 @@
 using EventApi.Application.Contract;
 using EventApi.Application.Exceptions;
 using EventApi.Application.Utils;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Security;
 using EventApi.Infrasestructure.Model;
 using MediatR;
 

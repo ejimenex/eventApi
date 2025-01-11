@@ -1,6 +1,6 @@
 ﻿using EventApi.Domain.Common;
 
-namespace EventApi.Domain.Entities
+namespace EventApi.Domain.Entities.Catalog
 {
     public class Country : BaseId
     {

@@ -1,4 +1,4 @@
-﻿using EventApi.Domain.Entities;
+﻿using EventApi.Domain.Entities.Security;
 
 namespace EventApi.Application.Contract
 {

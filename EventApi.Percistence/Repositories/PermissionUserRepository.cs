@@ -1,5 +1,5 @@
 ﻿using EventApi.Application.Contract;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Percistence.Repositories

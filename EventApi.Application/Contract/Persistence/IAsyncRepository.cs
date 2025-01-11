@@ -1,4 +1,6 @@
-﻿namespace EventApi.Application.Contract.Persistence
+﻿using System.Linq.Expressions;
+
+namespace EventApi.Application.Contract.Persistence
 {
     public interface IAsyncRepository { }
     public interface IAsyncRepository<T> where T : class
@@ -9,5 +11,7 @@
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         IQueryable<T> ListAllDataBaseAsync();
+        IQueryable<T> GetByExpressionAsync(Expression<Func<T, bool>> expression);
+        IQueryable<T> GetWithInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
     }
 }

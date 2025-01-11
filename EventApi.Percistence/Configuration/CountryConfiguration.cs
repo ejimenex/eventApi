@@ -1,4 +1,4 @@
-﻿using EventApi.Domain.Entities;
+﻿using EventApi.Domain.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

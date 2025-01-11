@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EventApi.Application.Features.PermissionSrv.Queries.PermissionAllQuery;
 using EventApi.Application.Features.PermissionUserSrv.Command.PermissionUserPost;
-using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Security;
 
 namespace EventApi.Application.Profiles
 {

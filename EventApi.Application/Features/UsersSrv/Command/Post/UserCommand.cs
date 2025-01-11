@@ -9,6 +9,7 @@ namespace EventApi.Application.Features.UsersSrv.Command.Post
         public string Password { get; set; }
         public string Email { get; set; }
         public int? OcupationId { get; set; }
+        public string ExternalCode { get; set; }
         public Guid TenantId { get; set; }
         public string LanguageCode { get; set; }
     }

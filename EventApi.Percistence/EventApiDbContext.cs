@@ -1,5 +1,7 @@
 ﻿using EventApi.Domain.Common;
 using EventApi.Domain.Entities;
+using EventApi.Domain.Entities.Catalog;
+using EventApi.Domain.Entities.Security;
 using EventApi.Infrasestructure.Contract;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +26,10 @@ public class EventApiDbContext : DbContext
     public DbSet<Ocupation> Ocupation { get; set; }
     public DbSet<Warehouse> Warehouse { get; set; }
     public DbSet<City> City { get; set; }
+    public DbSet<UserRole> UserRole { get; set; }
+    public DbSet<Role>   Role { get; set; }
+    public DbSet<RolPermission> RolPermission { get; set; }
+    public DbSet<UserAdittionalPermission> UserAdittionalPermission { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventApiDbContext).Assembly);

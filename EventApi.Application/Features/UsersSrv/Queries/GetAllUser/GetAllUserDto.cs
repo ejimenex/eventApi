@@ -6,6 +6,8 @@
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Ocupation { get; set; }
+        public DateTime LastLogin { get; set; }
+        
 
     }
 }
