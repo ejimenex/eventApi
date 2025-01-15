@@ -20,6 +20,7 @@ namespace EventApi.Percistence.Repositories
             return _dbContext.User.Where(c => !c.IsDeleted && c.TenantId == tenantId)
                 .WhereIf(filter.OcupationId is not null, c => c.OcupationId == filter.OcupationId)
                 .WhereIf(!string.IsNullOrEmpty(filter.FullName), c => c.FullName.Contains(filter.FullName))
+                .WhereIf(!string.IsNullOrEmpty(filter.Email), c => c.Email.Contains(filter.Email))
                 .Include(c => c.Ocupation)
                .AsQueryable();
         }

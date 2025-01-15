@@ -17,14 +17,6 @@ namespace EventApi.Application.Features.AuthenticationSrv.Autenticate
     {
         public async Task<TokenResponse> Handle(AutenticateCommand request, CancellationToken cancellationToken)
         {
-            var validator = new AutenticateValidation(userRepository);
-            var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-            if (validationResult.Errors.Any())
-            {
-                throw new FriendlyException(validationResult);
-            }
-
             var existUser = await userRepository.ExistEmail(request.Email);
             if (!existUser)
                 throw new CustomException("Wrong credentials, please check and input again");
@@ -35,6 +27,7 @@ namespace EventApi.Application.Features.AuthenticationSrv.Autenticate
                 throw new CustomException("Wrong credentials, please check and input again");
             var permissions = (await GetPermission(user.Id));
             var token = GenerateToken.generateJwtToken(user, permissions.ToList());
+            await UpdateLoginUserData(user.Id);
             return new TokenResponse { token = token };
         }
         private async Task <List<string>> GetPermission(int userId) {
@@ -59,6 +52,12 @@ namespace EventApi.Application.Features.AuthenticationSrv.Autenticate
                 .ToList();
             return permssions;
 
+        }
+        private async Task UpdateLoginUserData(int userId) {
+        var user = await userRepository.GetByIdAsync(userId);
+            user.LastLogin = DateTime.Now;
+            user.LoginQuantity =+ 1;
+           await    userRepository.UpdateAsync(user);
         }
     }
 }
