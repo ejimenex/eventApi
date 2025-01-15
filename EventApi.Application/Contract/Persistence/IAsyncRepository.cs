@@ -2,7 +2,7 @@
 
 namespace EventApi.Application.Contract.Persistence
 {
-    public interface IAsyncRepository { }
+   
     public interface IAsyncRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int Id);
@@ -12,6 +12,7 @@ namespace EventApi.Application.Contract.Persistence
         Task DeleteAsync(T entity);
         IQueryable<T> ListAllDataBaseAsync();
         IQueryable<T> GetByExpressionAsync(Expression<Func<T, bool>> expression);
+        Task<bool> ExistAsync(Expression<Func<T, bool>> expression);
         IQueryable<T> GetWithInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
     }
 }

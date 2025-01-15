@@ -6,6 +6,7 @@ namespace EventApi.Domain.Entities.Security
     {    
         public string Name { get; set; } 
         public string Description { get; set; }
+        public Guid UniqueId { get; set; }
         public ICollection<UserRole> UserRole { get; set; }
         public ICollection<RolPermission> RolPermission { get; set; }
     }

@@ -46,5 +46,9 @@ namespace EventApi.Percistence.Repositories.Base
             await _dbContext.SaveChangesAsync();
         }
 
+        public Task<bool> ExistAsync(Expression<Func<T, bool>> expression)
+        {
+           return _dbContext.Set<T>().AnyAsync(expression); 
+        }
     }
 }

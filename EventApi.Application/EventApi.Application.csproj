@@ -22,6 +22,9 @@
     <Folder Include="Features\CitySrv\Query\GetAllQuery\" />
     <Folder Include="Features\CitySrv\Query\GetOneQuery\" />
     <Folder Include="Features\CompanySrv\Command\Remove\" />
+    <Folder Include="Features\Securiry\UserAdittionalPermissions\" />
+    <Folder Include="Features\Securiry\UserRoles\" />
+    <Folder Include="Features\Securiry\Permissions\" />
     <Folder Include="Features\UsersSrv\Command\Put\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
